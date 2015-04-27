@@ -51,6 +51,7 @@ function some(arr, predicate){
   }
   return false;
 }
+
 console.log(every([NaN, NaN, NaN], isNaN));
 // → true
 console.log(every([NaN, NaN, 4], isNaN));
@@ -62,4 +63,19 @@ console.log(some([2, 3, 4], isNaN));
 
 //Compute and output the average age of the people 
 //in the ancestry data set per century
+function average(array) {
+  function plus(a, b) { return a + b; }
+  return array.reduce(plus) / array.length;
+}
 
+var arrEachCentury = [];
+ancestry.forEach(function(person){
+  var eachCentury = Math.ceil(person.died / 100);
+  if(!(eachCentury in arrEachCentury))
+    arrEachCentury[eachCentury] = [];
+  arrEachCentury[eachCentury].push(person.died - person.born);
+});
+
+arrEachCentury.forEach(function(century){
+  console.log(average(century));
+});
